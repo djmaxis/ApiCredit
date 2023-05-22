@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <center>
+         <title>Calculadora costos de envío</title>
+      </center>
+      <link rel="stylesheet" href="styles.css">
+   </head>
+   <body>
+      <div class="container">
+         <h1>Formulario Para credit WTS</h1>
+         <form id="formulario">
+            <div class="form-group" style="flex: 5; margin-center: 10px;">
+               <label for="fecha">Fecha:</label>
+               <input type="text" id="fecha" readonly>
+            </div>
+            <button class="boton" id="nuevoPedido" type="button">Nueva Transaccion</button>
+            <div class="form-group">
+               <div class="kilometros-group">
+                  <div id="resultado"></div>
+                  <!-- Movido aquí -->
+               </div>
+            </div>
+            <div class="form-group" style="flex: 1; margin-left: 10px;">
+               <label for="saldoActual">Saldo Actual:</label>
+               <input type="number" id="saldoActual" name="saldoActual" required placeholder="Monto pendiente" />
+            </div>
+            <div style="display: flex;">
+               <div class="form-group" style="flex: 1; margin-right: 10px;">
+                  <label for="montoabono">Abono:</label>
+                  <input type="number" id="montoabono" required placeholder="Monto del abono" style="width: 200px;">
+               </div>
+               <div class="form-group">
+                  <label for="fechaAbono">Fecha de Abono:</label>
+                  <input type="date" id="fechaAbono" name="fechaAbono" required />
+               </div>
+            </div>
+            <div class="form-group">
+               <label for="nombreCliente">Nombre:</label>
+               <input type="text" id="nombreCliente" name="nombreCliente" pattern="[A-Za-z\s]+" required placeholder="Nombre del cliente" />
+            </div>
+            <div class="form-group">
+               <label for="telefono">Número:</label>
+               <input type="tel" id="telefono" name="telefono" pattern="\d{10}" required placeholder="Numero de telefono del cliente" />
+            </div>
+            <center>
+               <h3>Modulo: Rebajar productos / Agregar facturas</h3>
+            </center>
+            <div style="display: flex; justify-content: space-between;">
+               <div class="form-group" style="flex: 1; margin-right: 10px;">
+                  ¿Quieres rebajar productos?
+                  <input type="radio" id="rebajaNo" name="rebajarProductos" value="No" checked>
+                  <label for="rebajaNo">No</label>
+                  <input type="radio" id="rebajaSi" name="rebajarProductos" value="Si">
+                  <label for="rebajaSi">Sí</label>
+               </div>
+               <div class="form-group" style="flex: 1; margin-left: 10px;">
+                  ¿Agregar Factura?
+                  <input type="radio" id="otroradioNo" name="otroOpcion" value="No" checked>
+                  <label for="otroradionNo">No</label>
+                  <input type="radio" id="otroradioSi" name="otroOpcion" value="Si">
+                  <label for="otroradioSi">Sí</label>
+               </div>
+            </div>
+            <h2 id="headerRProductos">Rebajar Productos</h2>
+            <div class="form-group">
+               <label id="labelCantidad" for="cantidad">Cantidad:</label>
+               <input type="number" id="cantidad" name="cantidad" min="1" placeholder=""/>
+               <label id="labelProducto" for="producto">Producto:</label>
+               <input type="text" id="producto" name="producto" pattern="[A-Za-z0-9\s]+" placeholder="" />
+            </div>
+            <div class="form-group">
+               <label id="labelPrecio" for="precio">Precio:</label>
+               <input type="number" id="precio" name="precio" placeholder="" />
+            </div>
+            <div class="carrito-group1">
+               <button type="button" id="agregarProducto" class="agregar-producto">Agregar producto al carrito</button>
+               <div id="carrito"></div>
+               <div id="total">Total: $0</div>
+            </div>
+            <h2 id="headerFacturas">Nuevas Facturas</h2>
+            <div class="form-group">
+               <label id="labelFactura" for="numerofactura">Factura</label>
+               <input type="number" id="numerofactura" name="numerofactura" placeholder="Número de la factura" />
+            </div>
+            <div class="form-group">
+               <label id="labelMonto" for="montofactura">Monto</label>
+               <input type="number" id="montofactura" name="montofactura" placeholder="Monto de la factura" />
+            </div>
+            <div class="carrito-group2">
+               <button type="button" id="agregarOtroProducto" class="agregar-producto">Agregar facruta al carrito</button>
+               <div id="otroCarrito"></div>
+               <div id="otroTotal">Total: $0</div>
+            </div>
+			 
+			 
+			 
+           <button id="botonFormato" class="botonFormato" type="button">boton formato</button>
+
+
+
+			 
+			 
+			 <script>
+               window.addEventListener('DOMContentLoaded', () => {
+                 const campoFecha = document.getElementById('fecha');
+               
+                 // Obtener la fecha actual
+                 const fechaActual = new Date();
+                 const dia = String(fechaActual.getDate()).padStart(2, '0');
+                 const mes = String(fechaActual.getMonth() + 1).padStart(2, '0');
+                 const anio = fechaActual.getFullYear();
+               
+                 // Formatear la fecha como "dd/mm/aaaa"
+                 const fechaFormateada = `${dia}/${mes}/${anio}`;
+               
+                 // Establecer la fecha actual en el campo de entrada
+                 campoFecha.value = fechaFormateada;
+               });
+            </script>
+            <!-- Formato fecha abono-->
+            	 
+			 
+			 <script>
+    window.addEventListener('DOMContentLoaded', () => {
+        const campoFechaAbono = document.getElementById('fechaAbono');
+
+        // Obtener la fecha actual
+        const fechaActual = new Date();
+        const dia = String(fechaActual.getDate()).padStart(2, '0');
+        const mes = String(fechaActual.getMonth() + 1).padStart(2, '0'); // Los meses en JS son 0-11, no 1-12
+        const anio = fechaActual.getFullYear();
+
+        // Formatear la fecha como "AAAA-MM-DD"
+        const fechaFormateada = `${anio}-${mes}-${dia}`;
+
+        // Establecer la fecha actual como valor predeterminado en el campo de entrada
+        campoFechaAbono.value = fechaFormateada;
+    });
+</script>
+			 
+			 
+         </form>
+      </div>
+      <!--no borrar porque danara funcion guardado txt-->
+      <!--no borrar porque danara funcion guardado txt-->
+      <!--no borrar porque danara funcion guardado txt-->
+      <!--no borrar porque danara funcion guardado txt-->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      <script src="formulario.js"></script>
+      <!--<script src="rebajaSi_otroradioSi.js"></script>-->
+   </body>
+</html>
