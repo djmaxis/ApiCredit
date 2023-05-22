@@ -277,40 +277,41 @@ function rebajaSi_otroradioSi() {
     var fecha = document.getElementById('fecha').value;
     var saldoActual = parseFloat(document.getElementById('saldoActual').value);
     var montoAbono = parseFloat(document.getElementById('montoabono').value);
-var fechaAbonoValue = document.getElementById('fechaAbono').value;
 
-var fechaAbono = new Date(fechaAbonoValue);
-var dia = String(fechaAbono.getDate()).padStart(2, '0');
-var mes = String(fechaAbono.getMonth() + 1).padStart(2, '0'); // Los meses en JavaScript comienzan desde 0
-var anio = fechaAbono.getFullYear();
+    var fechaAbonoValue = document.getElementById('fechaAbono').value;
+    var fechaAbono = new Date(fechaAbonoValue);
+    var dia = String(fechaAbono.getDate()).padStart(2, '0');
+    var mes = String(fechaAbono.getMonth() + 1).padStart(2, '0'); // Los meses en JavaScript comienzan desde 0
+    var anio = fechaAbono.getFullYear();
+    fechaAbono = `${dia}/${mes}/${anio}`;
 
-fechaAbono = `${dia}/${mes}/${anio}`;
-    
-	var nombreCliente = document.getElementById('nombreCliente').value;
-    //var telefonoCliente = document.getElementById('telefono').value;
+    var nombreCliente = document.getElementById('nombreCliente').value;
+    var telefonoCliente = document.getElementById('telefono').value;
 
     // Eliminar el 'Total: $' y convertir en número. Asegurarse de que sean convertibles a número.
     var total = document.getElementById('total').innerText.replace('Total: $','');
     total = total === '' ? 0 : parseFloat(total);
     var otroTotal = document.getElementById('otroTotal').innerText.replace('Total: $','');
     otroTotal = otroTotal === '' ? 0 : parseFloat(otroTotal);
-    
+
     var carritoDiv = document.getElementById('carrito').innerText.split(' X').slice(0,-1).join('');
     var otroCarritoDiv = document.getElementById('otroCarrito').innerText.split(' X').slice(0,-1).join('');
 
     // Continúa con el cálculo de saldo restante y total
     var saldoRestante = saldoActual - total;
     var saldoTotal = saldoRestante + montoAbono + otroTotal;
-    
+
     // Genera el mensaje final formateando los montos con comas separando los miles
     var mensajeFinal = `Fecha: ${fecha}\nBalance de: *${nombreCliente}*\n\n*Saldo anterior:* ${saldoActual.toLocaleString()}\n\nDel saldo anterior *rebajaremos* estos productos:\n${carritoDiv}\n*Total:* ${total.toLocaleString()}\n\n*Saldo restante:* ${saldoRestante.toLocaleString()}\n\n*Abono:* ${montoAbono.toLocaleString()} El ${fechaAbono}\n\n*Sumaremos:*\n${otroCarritoDiv}\n*Total:* ${otroTotal.toLocaleString()}\n\n*Saldo total:* ${saldoTotal.toLocaleString()}`;
+    mensajeFinal += `(https://wa.me/${telefonoCliente}?text=${encodeURIComponent(mensajeFinal)})`;
 
     // Crea el enlace de WhatsApp
-    var mensajeWhatsApp = `https://wa.me/18295463303?text=${encodeURIComponent(mensajeFinal)}`;
+    var mensajeWhatsAppCliente = `https://wa.me/18295463303?text=${encodeURIComponent(mensajeFinal)}`;
 
     // Abre el enlace de WhatsApp en una nueva pestaña
-    window.open(mensajeWhatsApp, '_blank');
+    window.open(mensajeWhatsAppCliente, '_blank');
 }
+
 
 
 

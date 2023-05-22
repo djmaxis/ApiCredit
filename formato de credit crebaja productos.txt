@@ -1,0 +1,54 @@
+       
+$(document).ready(function(){
+    $("#botonFormato").click(function(){
+        // Primero: verifica que ambos radios están en "Sí"
+        if ($('#rebajaSi').is(':checked') && $('#otroradioSi').is(':checked')) {
+
+            // Segundo: verifica si hay elementos en el carrito de productos
+            if (carrito.length > 0) {
+
+                // Tercero: verifica si hay elementos en el carrito de facturas
+                if (facturas.length > 0) {
+                    rebajaSi_otroradioSi();
+                } else {
+                    alert('No hay facturas en el carrito de facturas.');
+                }
+            } else {
+                alert('El carrito de productos no tiene elementos.');
+            }
+        } else {
+            alert('Alguno de los radios esta en no.');
+        }
+    });
+});
+ 
+Todas las condicones se cumplen de este codigo presentado en las lineas anteriores. Crea una funcion llamada "rebajaSi_otroradioSi(){" en la cual tendras que enviar un mensaje utilizando:
+1. (https://wa.me/1${telefono}?text=${encodeURIComponent(mensajeWhatsApp)})
+
+Mira este ejemplo: (let mensajeWhatsApp = `Hola *${nombreCliente}*. Mi nombre es *${nombreMensajero}*, soy mensajero de la tienda *iMaxis EIRL*\n\nTengo que entregarte este pedido:\n\n${mensaje}\nSi todo está correcto, envíame tu ubicación en tiempo actual para hacerle la entrega:\n\n`;
+    let mensajeFinal = `*Fecha:* ${fecha}\n*Número de Factura:* ${numerofactura}\n\nEl pedido es para: *${nombreCliente}*\n\n*Pedido:*\n${mensaje}\nEste pedido va para: *${ubicacionEnvio}*\n\nHaz clic en el enlace para contactar al cliente y pedirle la ubicación: `;
+    mensajeFinal += `(https://wa.me/1${telefono}?text=${encodeURIComponent(mensajeWhatsApp)})`;
+)
+
+
+
+
+***Quiero cambiar el mensaje del ejemplo anterior por este formato*****:
+
+id="fecha";
+Saldo anterior: id="saldoActual";
+
+Del saldo anterior rebajaremos estos productos:<div id="carrito;
+id="total;
+
+
+" "id="saldoActual" "Tu saldo anterior";
+"-"id="total" "productos rebajados"; 
+"="[id="saldoActual"-id="total"] (si el resultado es negativo, entonces: "="saldoActual"-id="total"" <-Monto a favor", de lo contrario "="saldoActual"-id="total""  <-Monto pendiete");
+
+
+" "saldoActual"-id="total
+"+"id="facturas" en este formato:"0.00 de Factura #XXXX fecha";
+"="SaldoTotal=(saldoActual"-id="total)+"otroTotal (si el resultado de SaldoTotal es negativo, entonces: "="SaldoTotal " <-Monto a favor", de lo contrario "="SaldoTotal " <-Monto pendiete")
+
+
