@@ -1,3 +1,26 @@
+/*Cambio de tecla ENTER por TAB*/
+ const options = { minimumFractionDigits: 0, maximumFractionDigits: 0 };
+    const formatter = new Intl.NumberFormat('es-DO', options);
+    window.formatter = formatter;
+
+
+window.addEventListener('keydown', function(e){
+    if(e.key=='Enter') {
+        e.preventDefault(); // Evita la acción predeterminada de la tecla "Enter"
+        var input = document.activeElement; // Elemento activo en el que se presionó "Enter"
+
+        // Revisa todos los elementos que pueden recibir el foco en la página
+        var focusableElements = 'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
+        var focusable = Array.prototype.slice.call(document.querySelectorAll(focusableElements)).filter(el => el.offsetParent !== null);
+
+        // Obtiene el índice del elemento activo y se mueve al siguiente
+        var nextIndex = (focusable.indexOf(input) + 1) % focusable.length;
+        focusable[nextIndex].focus();
+    }
+});
+
+/*Cambio de tecla ENTER por TAB*/
+
 /*refrescar pagina con boton pedido nuevo*/
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -119,47 +142,49 @@ document.getElementById('agregarProducto').addEventListener('click', (e) => {
 
 
 function actualizarCarrito() {
-	let carritoDiv = document.getElementById('carrito');
+    let carritoDiv = document.getElementById('carrito');
+    let totalDiv = document.getElementById('total');
+    carritoDiv.innerHTML = ''; // Limpiar el carrito
 
-	let totalDiv = document.getElementById('total');
-	carritoDiv.innerHTML = ''; // Limpiar el carrito
+    if (carrito.length === 0) {
+        totalDiv.innerHTML = '<i style="color: #FF6666; text-align: center; display: block;">Carrito está vacío</i>';
+    } else {
+        let sumaTotal = 0;
+        carrito.forEach((producto, index) => {
+            let productoDiv = document.createElement('div');
+            productoDiv.style.textAlign = 'center'; // Centrar el contenido del producto
 
-	if (carrito.length === 0) {
-		totalDiv.innerHTML = '<i style="color: #FF6666; text-align: center; display: block;">Carrito está vacío</i>';
-	} else {
-		let sumaTotal = 0;
-		carrito.forEach((producto, index) => {
-			let productoDiv = document.createElement('div');
-			productoDiv.style.textAlign = 'center'; // Centrar el contenido del producto
+            let cantidadSpan = document.createElement('span'); // Crear un span para la cantidad
+            cantidadSpan.textContent = producto.cantidad; // Setear el texto del span a la cantidad del producto
+            productoDiv.appendChild(cantidadSpan);
 
-			let cantidadSpan = document.createElement('span'); // Crear un span para la cantidad
-			cantidadSpan.textContent = producto.cantidad; // Setear el texto del span a la cantidad del producto
-			productoDiv.appendChild(cantidadSpan);
+            let productoInfo = document.createTextNode(` x ${producto.nombre} de $${formatter.format(producto.precio)} = $${formatter.format(Number(producto.cantidad) * Number(producto.precio))}`);
+            productoDiv.appendChild(productoInfo);
 
-			let productoInfo = document.createTextNode(` x ${producto.nombre} de $${producto.precio.toLocaleString()} = $${producto.total.toLocaleString()} `);
-			productoDiv.appendChild(productoInfo);
+            let eliminarBoton = document.createElement('button');
+            eliminarBoton.classList.add('eliminar');
+            eliminarBoton.setAttribute('data-index', index);
+            eliminarBoton.style.cssText = 'border-radius: 50%; color: white; background-color: red; width: 20px; height: 20px;';
+            eliminarBoton.textContent = 'X';
+            eliminarBoton.addEventListener('click', (e) => {
+                let index = e.target.getAttribute('data-index'); // Obtener el índice del producto
+                carrito.splice(index, 1); // Eliminar el producto del carrito
+                actualizarCarrito(); // Actualizar el carrito
+            });
+            productoDiv.appendChild(eliminarBoton);
 
-			let eliminarBoton = document.createElement('button');
-			eliminarBoton.classList.add('eliminar');
-			eliminarBoton.setAttribute('data-index', index);
-			eliminarBoton.style.cssText = 'border-radius: 50%; color: white; background-color: red; width: 20px; height: 20px;';
-			eliminarBoton.textContent = 'X';
-			eliminarBoton.addEventListener('click', (e) => {
-				let index = e.target.getAttribute('data-index'); // Obtener el índice del producto
-				carrito.splice(index, 1); // Eliminar el producto del carrito
-				actualizarCarrito(); // Actualizar el carrito
-			});
-			productoDiv.appendChild(eliminarBoton);
+            carritoDiv.appendChild(productoDiv);
 
-			carritoDiv.appendChild(productoDiv);
+            // Sumar el total del producto al total general
+            sumaTotal += Number(producto.cantidad) * Number(producto.precio);
+        });
 
-			// Sumar el total del producto al total general
-			sumaTotal += producto.total;
-		});
-
-		totalDiv.textContent = `Total: $${sumaTotal.toLocaleString()}`;
-	}
+        totalDiv.textContent = `Total: $${formatter.format(sumaTotal)}`;
+    }
 }
+
+
+
 
 // Iniciar el carrito
 actualizarCarrito();
@@ -179,7 +204,7 @@ function actualizarFactura() {
 			let facturaDivElem = document.createElement('div');
 			facturaDivElem.style.textAlign = 'center'; // Centrar el contenido del producto
 
-			let facturaInfo = document.createTextNode(`Factura # ${factura.numero} Monto $${factura.monto.toLocaleString()} `);
+			let facturaInfo = document.createTextNode(`Factura #${factura.numero} Monto $${factura.monto.toLocaleString()} `);
 			facturaDivElem.appendChild(facturaInfo);
 
 			let eliminarBoton = document.createElement('button');
@@ -260,58 +285,6 @@ actualizarFactura();
 
 
 
-// función para formatear números con comas
-
-function formatearNumeroConComas(x) {
-    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-}
-
-
-// función para formatear números con comas
-
-
-
-
-function rebajaSi_otroradioSi() {
-    // Obtén los elementos del formulario
-    var fecha = document.getElementById('fecha').value;
-    var saldoActual = parseFloat(document.getElementById('saldoActual').value);
-    var montoAbono = parseFloat(document.getElementById('montoabono').value);
-
-    var fechaAbonoValue = document.getElementById('fechaAbono').value;
-    var fechaAbono = new Date(fechaAbonoValue);
-    var dia = String(fechaAbono.getDate()).padStart(2, '0');
-    var mes = String(fechaAbono.getMonth() + 1).padStart(2, '0'); // Los meses en JavaScript comienzan desde 0
-    var anio = fechaAbono.getFullYear();
-    fechaAbono = `${dia}/${mes}/${anio}`;
-
-    var nombreCliente = document.getElementById('nombreCliente').value;
-    var telefonoCliente = document.getElementById('telefono').value;
-
-    // Eliminar el 'Total: $' y convertir en número. Asegurarse de que sean convertibles a número.
-    var total = document.getElementById('total').innerText.replace('Total: $','');
-    total = total === '' ? 0 : parseFloat(total);
-    var otroTotal = document.getElementById('otroTotal').innerText.replace('Total: $','');
-    otroTotal = otroTotal === '' ? 0 : parseFloat(otroTotal);
-
-    var carritoDiv = document.getElementById('carrito').innerText.split(' X').slice(0,-1).join('');
-    var otroCarritoDiv = document.getElementById('otroCarrito').innerText.split(' X').slice(0,-1).join('');
-
-    // Continúa con el cálculo de saldo restante y total
-    var saldoRestante = saldoActual - total;
-    var saldoTotal = saldoRestante + montoAbono + otroTotal;
-
-    // Genera el mensaje final formateando los montos con comas separando los miles
-    var mensajeFinal = `Fecha: ${fecha}\nBalance de: *${nombreCliente}*\n\n*Saldo anterior:* ${saldoActual.toLocaleString()}\n\nDel saldo anterior *rebajaremos* estos productos:\n${carritoDiv}\n*Total:* ${total.toLocaleString()}\n\n*Saldo restante:* ${saldoRestante.toLocaleString()}\n\n*Abono:* ${montoAbono.toLocaleString()} El ${fechaAbono}\n\n*Sumaremos:*\n${otroCarritoDiv}\n*Total:* ${otroTotal.toLocaleString()}\n\n*Saldo total:* ${saldoTotal.toLocaleString()}`;
-    mensajeFinal += `(https://wa.me/${telefonoCliente}?text=${encodeURIComponent(mensajeFinal)})`;
-
-    // Crea el enlace de WhatsApp
-    var mensajeWhatsAppCliente = `https://wa.me/18295463303?text=${encodeURIComponent(mensajeFinal)}`;
-
-    // Abre el enlace de WhatsApp en una nueva pestaña
-    window.open(mensajeWhatsAppCliente, '_blank');
-}
-
 
 
 
@@ -333,7 +306,11 @@ $(document).ready(function(){
                 alert('El carrito de productos no tiene elementos.');
             }
         } else {
-            alert('Alguno de los radios esta en no.');
+			
+           if ($('#rebajaNo').is(':checked') && $('#otroradioNo').is(':checked')) {
+			 rebajaNo_otroradioNo();
+			   
+		   }
         }
     });
 });
