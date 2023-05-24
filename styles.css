@@ -1,24 +1,24 @@
-body {
+html, body {
     font-family: Arial, sans-serif;
     background-color: #f8f8f8;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    height: 100%;
     margin: 0;
+    padding: 0;
+    overflow: auto;
+    display: block;
 }
 
 .container {
     background-color: white;
-    padding: 1rem;  /* Reducido de 2rem a 1rem */
+    padding: 1rem;
     border-radius: 50px;
     box-shadow: 0 8px 6px rgba(0, 0, 0, 0.1);
     max-width: 500px;
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    display: block;
+    margin: 10px auto;
 }
+
 
 h1 {
     color: #333;
@@ -147,5 +147,82 @@ button:hover {
     font-size: 12px;
     display: block;
     margin-top: 5px;
+}
+
+select {
+  width: 100%;
+  height: 30px;
+  padding: 6px;
+  font-size: 16px;
+  border: 1px solid #e2eded;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #2d3667;
+}
+
+select:focus {
+  outline: none;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+}
+
+  #fecha:focus {
+    outline: none;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+  }
+
+.styled-input {
+  width: 100%;
+  height: 30px;
+  padding: 6px;
+  font-size: 16px;
+  border: 1px solid #e2eded;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #2d3667;
+}
+
+.styled-input:focus {
+  outline: none;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+}
+
+.button {
+  padding: 5px;
+  background-color: #FF6666;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.eliminar {
+    border: none;
+    color: white;
+    text-align: center;
+    display: inline-block;
+    font-size: 10px;
+    transition: all 0.5s;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    background-color: red;
+    padding: 5;
+    line-height: 15px;
+}
+
+.eliminar:hover {
+    background-color: darkred;
+}
+
+.carrito-group3 {
+    border: 2px solid #41CD30;
+   padding: 1px;  /* Reducido de 10px a 5px */
+    display: flex;
+    flex-direction: column;
+    gap: 5px;  /* Reducido de 10px a 5px */
+    align-items: center;
+    margin-bottom: 5px;  /* Reducido de 10px a 5px */
+    width: 100%;
 }
 

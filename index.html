@@ -14,7 +14,9 @@
          <form id="formulario">
             <div class="form-group" style="flex: 5; margin-center: 10px;">
                <label for="fecha">Fecha:</label>
-               <input type="text" id="fecha" readonly>
+               <input type="text" id="fecha" readonly style="width: 100%; height: 30px; padding: 6px; font-size: 16px; border: 1px solid #e2eded; border-radius: 4px; background-color: #fff; color: #2d3667;">
+				
+				
             </div>
             <button class="boton" id="nuevoPedido" type="button">Nueva Transaccion</button>
             <div class="form-group">
@@ -23,48 +25,100 @@
                   <!-- Movido aquí -->
                </div>
             </div>
-            <div class="form-group" style="flex: 1; margin-left: 10px;">
+         
+			 			 <div class="form-group">
+    <label for="nombreCliente">Nombre:</label>
+    <select id="nombreCliente" name="nombreCliente" onchange="rellenarTelefono()" required>
+        <option value="">Seleccione un cliente</option>
+        <option value="Enrique_8295463303">Enrique</option>
+        <option value="Juan_8295463304">Juan</option>
+        <option value="Maria_8295463305">Maria</option>
+        <!-- Agrega más opciones aquí -->
+    </select>
+</div>
+			<div class="form-group" style="flex: 1; margin-left: 1px;">
                <label for="saldoActual">Saldo Actual:</label>
-               <input type="number" id="saldoActual" name="saldoActual" required placeholder="Monto pendiente" />
-            </div>
-            <div style="display: flex;">
-               <div class="form-group" style="flex: 1; margin-right: 10px;">
-                  <label for="montoabono">Abono:</label>
-                  <input type="number" id="montoabono" required placeholder="Monto del abono" style="width: 200px;">
-               </div>
-               <div class="form-group">
-                  <label for="fechaAbono">Fecha de Abono:</label>
-                  <input type="date" id="fechaAbono" name="fechaAbono" required />
-               </div>
-            </div>
-            <div class="form-group">
-               <label for="nombreCliente">Nombre:</label>
-               <input type="text" id="nombreCliente" name="nombreCliente" pattern="[A-Za-z\s]+" required placeholder="Nombre del cliente" />
-            </div>
-            <div class="form-group">
-               <label for="telefono">Número:</label>
-               <input type="tel" id="telefono" name="telefono" pattern="\d{10}" required placeholder="Numero de telefono del cliente" />
-            </div>
+               <input type="text" id="saldoActual" name="saldoActual" required placeholder="Monto pendiente" />
+            </div> 
+       
+			 
+
+			 
+			 
+			 
             <center>
-               <h3>Modulo: Rebajar productos / Agregar facturas</h3>
+               <h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Abonos&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Rebajar productos&nbsp;&nbsp;Agregar Facturas</h3>
             </center>
-            <div style="display: flex; justify-content: space-between;">
-               <div class="form-group" style="flex: 1; margin-right: 10px;">
-                  ¿Quieres rebajar productos?
-                  <input type="radio" id="rebajaNo" name="rebajarProductos" value="No" checked>
-                  <label for="rebajaNo">No</label>
-                  <input type="radio" id="rebajaSi" name="rebajarProductos" value="Si">
-                  <label for="rebajaSi">Sí</label>
-               </div>
-               <div class="form-group" style="flex: 1; margin-left: 10px;">
-                  ¿Agregar Factura?
-                  <input type="radio" id="otroradioNo" name="otroOpcion" value="No" checked>
-                  <label for="otroradionNo">No</label>
-                  <input type="radio" id="otroradioSi" name="otroOpcion" value="Si">
-                  <label for="otroradioSi">Sí</label>
-               </div>
-            </div>
-            <h2 id="headerRProductos">Rebajar Productos</h2>
+			 
+			 
+<div style="display: flex; justify-content: space-between;">
+  <div class="form-group" style="flex: 1; margin-left: 10px;">
+    <div style="border: 2px solid #41CD30; padding: 1px; display: flex; flex-direction: column; gap: 5px; align-items: center; margin-bottom: 5px; width: 100%;">
+      ¿Quieres agregar abonos?
+      <input type="radio" id="abonoNo" name="AbonoRadio" value="No" checked>
+      <label for="abonoNo">No</label>
+      <input type="radio" id="abonoSi" name="AbonoRadio" value="Si">
+      <label for="abonoSi">Sí</label>
+    </div>
+  </div>
+  <div class="form-group" style="flex: 1; margin-left: 10px;">
+    <div style="border: 2px solid #41CD30; padding: 1px; display: flex; flex-direction: column; gap: 5px; align-items: center; margin-bottom: 5px; width: 100%;">
+      ¿Quieres rebajar productos?
+      <input type="radio" id="rebajaNo" name="rebajarProductos" value="No" checked>
+      <label for="rebajaNo">No</label>
+      <input type="radio" id="rebajaSi" name="rebajarProductos" value="Si">
+      <label for="rebajaSi">Sí</label>
+    </div>
+  </div>
+  <div class="form-group" style="flex: 1; margin-left: 10px;">
+    <div style="border: 2px solid #41CD30; padding: 1px; display: flex; flex-direction: column; gap: 5px; align-items: center; margin-bottom: 5px; width: 100%;">
+      ¿Agregar algunas Factura?
+      <input type="radio" id="otroradioNo" name="otroOpcion" value="No" checked>
+      <label for="otroradioNo">No</label>
+      <input type="radio" id="otroradioSi" name="otroOpcion" value="Si">
+      <label for="otroradioSi">Sí</label>
+    </div>
+  </div>
+</div>
+			 <h2 id="headerAbono">Abonos</h2>
+			 <input type="hidden" id="telefono" name="telefono">
+			 
+			 
+
+<div style="display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto;">
+    <div class="form-group">
+        <label for="montoabono">Abono:</label>
+        <input type="text" id="montoabono" required placeholder="Monto del abono">
+    </div>
+    <div class="form-group">
+        <label for="metodoDePago">Método de Pago:</label>
+        <select id="metodoDePago" name="metodoDePago" required>
+            <option value="Efectivo">efectivo</option>
+            <option value="Transferencia">transferencia</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="fechaAbono">Fecha de Abono:</label>
+        <input type="date" id="fechaAbono" name="fechaAbono" required>
+    </div>
+    <div class="form-group" id="bancoDiv" style="display:none;">
+        <label for="banco">Banco:</label>
+        <input type="text" id="banco" name="banco" required placeholder="Nombre del banco">
+    </div>
+</div>
+
+
+<div class="carrito-group3">
+    <button type="button" id="Addabono" class="agregar-abono">Agregar abono al carrito</button>
+    <div id="CarritoAbono"></div>
+    <div id="totalAbono">Total: $0</div>
+</div>
+			 
+			 
+			 
+			 
+		  
+		  <h2 id="headerRProductos">Rebajar Productos</h2>
             <div class="form-group">
                <label id="labelCantidad" for="cantidad">Cantidad:</label>
                <input type="number" id="cantidad" name="cantidad" min="1" placeholder=""/>
@@ -89,6 +143,7 @@
                <label id="labelMonto" for="montofactura">Monto</label>
                <input type="number" id="montofactura" name="montofactura" placeholder="Monto de la factura" />
             </div>
+			 
             <div class="carrito-group2">
                <button type="button" id="agregarOtroProducto" class="agregar-producto">Agregar facruta al carrito</button>
                <div id="otroCarrito"></div>
@@ -150,8 +205,13 @@
       <!--no borrar porque danara funcion guardado txt-->
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
       <script src="formulario.js"></script>
-	  <script src="radiosisi.js"></script>
-	  <script src="radionono.js"></script>
+	  <script src="rebajaSi_otroradioSi_abonoNo.js"></script>
+	  <script src="rebajaNo_otroradioNo_abonoSi.js"></script>
+	  
+	   <script src="carritoabono.js"></script>
+	   <script src="carritoproductos.js"></script>
+	   <script src="carritofacturas.js"></script>
+	   <script src="manejoradio.js"></script>
       <!--<script src="rebajaSi_otroradioSi.js"></script>-->
    </body>
 </html>
