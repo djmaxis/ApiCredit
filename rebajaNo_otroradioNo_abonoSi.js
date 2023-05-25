@@ -36,7 +36,7 @@ function rebajaNo_otroradioNo_abonoSi() {
 	
 	if (saldoRestante == 0) {
 		alert(`${nombreCliente} ha saldado todas sus cuentas.`);
-        
+	}else{
 		
     // Genera el mensaje final
     var mensajeFinal = `Fecha: ${fecha}\nBalance de: *${nombreCliente}* \n\n${formatoMilesComa(saldoActual)} *Saldo anterior:*\n`;
@@ -68,4 +68,6 @@ function rebajaNo_otroradioNo_abonoSi() {
     document.body.removeChild(link);
 }
 	}
+
+
 
