@@ -33,3 +33,13 @@ function rebajaNo_otroradioSi_abonoNo() {
     link.click();
     document.body.removeChild(link);
 }
+
+function formatoMilesComa(n) {
+    var partes = n.toString().split(".");
+    partes[0] = partes[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return partes.join(".");
+}
+
+function limpiarNumero(numero) {
+    return parseFloat(numero.replace(/,/g, ''));
+}
