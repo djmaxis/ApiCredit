@@ -1,14 +1,4 @@
-function formatoMilesComa(n) {
-    var partes = n.toString().split(".");
-    partes[0] = partes[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    return partes.join(".");
-}
-
-function limpiarNumero(numero) {
-    return parseFloat(numero.replace(/,/g, ''));
-}
-
-function rebajaNo_otroradioNo_abonoSi() {
+function rebajaSi_otroradioNo_abonoSi() {
     // Obtén los elementos del formulario
     var fecha = document.getElementById('fecha').value;
     var saldoActual = parseFloat(document.getElementById('saldoActual').value.replace(/,/g, ''));
@@ -17,41 +7,44 @@ function rebajaNo_otroradioNo_abonoSi() {
     var seleccion = document.getElementById('nombreCliente').value; 
     var nombreCliente = seleccion.split('_')[0];
     var telefonoCliente = document.getElementById('telefono').value;
+    var total = limpiarNumero(document.getElementById('total').innerText.replace('Total: $', ''));
+    var carritoDiv = document.getElementById('carrito').innerText.trim().replace(/X/g, '');
 
     // Calcular el total de los abonos
     var totalAbonos = CarritoAbono.reduce((total, abono) => total + parseFloat(abono.monto), 0);
 
-    // Verificar que el saldo actual sea mayor o igual a la suma total de los abonos
-    if (saldoActual < totalAbonos) {
+    // Verificar que el saldo actual sea mayor o igual a la suma total de los abonos y productos
+    if (saldoActual < (totalAbonos + total)) {
         // Mostrar un mensaje de error al usuario
-        alert('El saldo actual no puede ser menor que la suma total de los abonos');
+        alert('El saldo actual no puede ser menor que la suma total de los abonos y productos');
         return;
     }
 	
-	
+    if (saldoActual === (totalAbonos + total)) {
+        alert(`${nombreCliente} ha saldado todas sus cuentas.`);
+        return;
+    }
 
     // Calcular el saldo restante
-    var saldoRestante = saldoActual - totalAbonos;
+    var saldoRestante = saldoActual - totalAbonos - total;
     var saldoRestanteString = saldoRestante < 0 ? formatoMilesComa(Math.abs(saldoRestante)) + " pesos a tu favor" : formatoMilesComa(saldoRestante);
-	
-	if (saldoRestante == 0) {
-		alert(`${nombreCliente} ha saldado todas sus cuentas.`);
-        
-		
+
     // Genera el mensaje final
-    var mensajeFinal = `Fecha: ${fecha}\nBalance de: *${nombreCliente}* \n\n${formatoMilesComa(saldoActual)} *Saldo anterior:*\n`;
+    var mensajeFinal = `Fecha: ${fecha}\nBalance de: *${nombreCliente}* \n\n${formatoMilesComa(saldoActual)} *Saldo anterior:*\n\nDel saldo anterior *rebajaremos...*\n${carritoDiv}\n=${formatoMilesComa(total)} *Total productos*\n`;
 
     // Añadir detalles de cada abono al mensaje
+    mensajeFinal += "\Abonos adicionados\n";
     CarritoAbono.forEach((abono, index) => {
-        mensajeFinal += `-${formatoMilesComa(abono.monto)} el ${abono.fechaAbono} por ${abono.metodoDePago}`;
+        mensajeFinal += `${formatoMilesComa(abono.monto)} el ${abono.fechaAbono} por ${abono.metodoDePago}`;
         if (abono.metodoDePago === "Transferencia") {
             mensajeFinal += ` al ${abono.banco}`;
         }
         mensajeFinal += `\n`;
     });
+    mensajeFinal += `=${formatoMilesComa(totalAbonos)} *Total abonos*\n`;
 
-    mensajeFinal += `=${saldoRestanteString} *Saldo total:*`;
-    
+    mensajeFinal += `\n__________________________________\n${formatoMilesComa(saldoActual)} *Saldo anterior:*\n-${formatoMilesComa(totalAbonos)} *Total abonos:*\n-${formatoMilesComa(total)} *Total productos:*\n=${saldoRestanteString} *Saldo restante:*`;
+
     var mensajeWhatsAppCliente = `https://wa.me/18295463303?text=${encodeURIComponent(mensajeFinal)}`;
 
     // Abre el enlace de WhatsApp en una nueva pestaña
@@ -67,5 +60,3 @@ function rebajaNo_otroradioNo_abonoSi() {
     link.click();
     document.body.removeChild(link);
 }
-	}
-

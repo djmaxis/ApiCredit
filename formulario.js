@@ -15,7 +15,7 @@ $(document).ready(function(){
             return;
         }
         
-        // Combinación 1: rebajaSi, otroradioSi, abonoNo
+        // Combinación 1: rebajaSi, otroradioSi, abonoNo *****listo*****
         if ($('#rebajaSi').is(':checked') && $('#otroradioSi').is(':checked') && $('#abonoNo').is(':checked')) {
             if (carrito.length > 0 && facturas.length > 0) {
                 rebajaSi_otroradioSi_abonoNo();
@@ -24,25 +24,26 @@ $(document).ready(function(){
             }
         }
 
-        // Combinación 2: rebajaSi, otroradioSi, abonoSi
+        // Combinación 2: rebajaSi, otroradioSi, abonoSi /*/* Listo */*/
         if ($('#rebajaSi').is(':checked') && $('#otroradioSi').is(':checked') && $('#abonoSi').is(':checked')) {
-            if (carrito.length > 0 && facturas.length > 0) {
+            if (carrito.length > 0 && facturas.length > 0 && CarritoAbono.length > 0) {
                 rebajaSi_otroradioSi_abonoSi();
             } else {
                 alert('No hay elementos suficientes en los carritos.');
+				
             }
         }
 
-        // Combinación 3: rebajaSi, otroradioNo, abonoNo
+        // Combinación 3: rebajaSi, otroradioNo, abonoNo /*/* Listo */*/
         if ($('#rebajaSi').is(':checked') && $('#otroradioNo').is(':checked') && $('#abonoNo').is(':checked')) {
             if (carrito.length > 0) {
-                rebajaSi_otroradioNo_abonoNo();
+                rebajaSi_otroradiono_abonoNo();
             } else {
                 alert('El carrito de productos no tiene elementos.');
             }
         }
 
-        // Combinación 4: rebajaSi, otroradioNo, abonoSi
+        // Combinación 4: rebajaSi, otroradioNo, abonoSi ****listo****
         if ($('#rebajaSi').is(':checked') && $('#otroradioNo').is(':checked') && $('#abonoSi').is(':checked')) {
             if (carrito.length > 0 && CarritoAbono.length > 0) {
                 rebajaSi_otroradioNo_abonoSi();
@@ -51,7 +52,7 @@ $(document).ready(function(){
             }
         }
 
-        // Combinación 5: rebajaNo, otroradioSi, abonoNo
+        // Combinación 5: rebajaNo, otroradioSi, abonoNo ****listo****
         if ($('#rebajaNo').is(':checked') && $('#otroradioSi').is(':checked') && $('#abonoNo').is(':checked')) {
             if (facturas.length > 0) {
                 rebajaNo_otroradioSi_abonoNo();
@@ -60,11 +61,11 @@ $(document).ready(function(){
             }
         }
 
-        // Combinación 6: rebajaNo, otroradioSi, abonoSi
+        // Combinación 6: rebajaNo, otroradioSi, abonoSi /*/*Elistoo */*/
         if ($('#rebajaNo').is(':checked') && $('#otroradioSi').is(':checked') && $('#abonoSi').is(':checked')) {
             if (facturas.length > 0 && CarritoAbono.length > 0) {
                 rebajaNo_otroradioSi_abonoSi();
-            } else {
+		     } else {
                 alert('No hay elementos suficientes en los carritos.');
             }
         }
@@ -74,7 +75,7 @@ $(document).ready(function(){
             alert('No se ha seleccionado ninguna opción.');
         }
 
-        // Combinación 8: rebajaNo, otroradioNo, abonoSi
+        // Combinación 8: rebajaNo, otroradioNo, abonoSi ****listo*****!
         if ($('#rebajaNo').is(':checked') && $('#otroradioNo').is(':checked') && $('#abonoSi').is(':checked')) {
             if (CarritoAbono.length > 0) {
                 rebajaNo_otroradioNo_abonoSi();
@@ -205,7 +206,7 @@ function actualizarCarrito() {
 }
 
 
-
+/*******Esto daba formato de comas a los numeros pero lo quite porque me daba bobo en carrito*******
 $(document).ready(function() {
     const nonNegativeFields = ['saldoActual', 'montoabono', 'precio', 'montofactura'];
     nonNegativeFields.forEach(id => {
@@ -227,4 +228,4 @@ $(document).ready(function() {
             $(this).val(new Intl.NumberFormat('en-US').format(value));
         }
     });
-});
+});*/
