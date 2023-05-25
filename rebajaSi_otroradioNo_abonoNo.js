@@ -22,7 +22,7 @@ function rebajaSi_otroradiono_abonoNo() {
     var saldoRestante = saldoActual - total;
 
     // Si saldoRestante es negativo, añade " pesos a tu favor"
-    var saldoRestanteString = saldoRestante < 0 ? formatoMilesComa(Math.abs(saldoRestante)) + " pesos a tu favor" : formatoMilesComa( Restante);
+   var saldoRestanteString = saldoRestante < 0 ? formatoMilesComa(Math.abs(saldoRestante)) + " pesos a tu favor" : formatoMilesComa(saldoRestante);
 
     // Genera el mensaje final
     var mensajeFinal = `Fecha: ${fecha}\nBalance de: *${nombreCliente}*\n\n* Saldo anterior:* ${formatoMilesComa(saldoActual)}\n\nDel saldo anterior *rebajaremos...*\n${carritoDiv}\n__________________________________\n${formatoMilesComa(total)} *Total:*\n-${formatoMilesComa(saldoActual)}*Saldo anterior: *\n\n*Saldo restante:* ${saldoRestanteString}`;
