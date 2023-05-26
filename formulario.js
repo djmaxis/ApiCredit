@@ -15,7 +15,7 @@ $(document).ready(function(){
             return;
         }
         
-        // Combinación 1: rebajaSi, otroradioSi, abonoNo *****listo*****
+        // Combinación 1: rebajaSi, otroradioSi, 
         if ($('#rebajaSi').is(':checked') && $('#otroradioSi').is(':checked') && $('#abonoNo').is(':checked')) {
             if (carrito.length > 0 && facturas.length > 0) {
                 rebajaSi_otroradioSi_abonoNo();
@@ -24,7 +24,7 @@ $(document).ready(function(){
             }
         }
 
-        // Combinación 2: rebajaSi, otroradioSi, abonoSi /*/* Listo */*/
+        // Combinación 2: rebajaSi, otroradioSi,
         if ($('#rebajaSi').is(':checked') && $('#otroradioSi').is(':checked') && $('#abonoSi').is(':checked')) {
             if (carrito.length > 0 && facturas.length > 0 && CarritoAbono.length > 0) {
                 rebajaSi_otroradioSi_abonoSi();
@@ -43,7 +43,7 @@ $(document).ready(function(){
             }
         }
 
-        // Combinación 4: rebajaSi, otroradioNo, abonoSi ****listo****
+        // Combinación 4: rebajaSi, otroradioNo, abonoSi
         if ($('#rebajaSi').is(':checked') && $('#otroradioNo').is(':checked') && $('#abonoSi').is(':checked')) {
             if (carrito.length > 0 && CarritoAbono.length > 0) {
                 rebajaSi_otroradioNo_abonoSi();
@@ -61,7 +61,7 @@ $(document).ready(function(){
             }
         }
 
-        // Combinación 6: rebajaNo, otroradioSi, abonoSi /*/*Elistoo */*/
+        // Combinación 6: rebajaNo, otroradioSi, abonoSi 
         if ($('#rebajaNo').is(':checked') && $('#otroradioSi').is(':checked') && $('#abonoSi').is(':checked')) {
             if (facturas.length > 0 && CarritoAbono.length > 0) {
                 rebajaNo_otroradioSi_abonoSi();
@@ -75,7 +75,7 @@ $(document).ready(function(){
             alert('No se ha seleccionado ninguna opción.');
         }
 
-        // Combinación 8: rebajaNo, otroradioNo, abonoSi ****listo*****!
+        // Combinación 8: rebajaNo, otroradioNo, abonoSi ****listo****
         if ($('#rebajaNo').is(':checked') && $('#otroradioNo').is(':checked') && $('#abonoSi').is(':checked')) {
             if (CarritoAbono.length > 0) {
                 rebajaNo_otroradioNo_abonoSi();

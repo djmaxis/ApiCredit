@@ -32,12 +32,11 @@ document.getElementById('Addabono').addEventListener('click', () => {
         banco: metodoDePagoInput.value === 'Transferencia' ? bancoInput.value : null,
     };
 
-    CarritoAbono.push(abono);
+   CarritoAbono.push(abono);
 
-    montoAbonoInput.value = '';
-    fechaAbonoInput.value = '';
-    metodoDePagoInput.value = '';
-    bancoInput.value = '';
+   montoAbonoInput.value = '';
+   montoAbonoInput.focus();
+   
 
     actualizarCarritoAbono();
 });
@@ -107,3 +106,7 @@ document.getElementById('Addabono').addEventListener('click', () => {
         const formattedDate = currentDate.toISOString().split('T')[0];
         fechaAbonoInput.value = formattedDate;
     });
+
+
+let eliminarBoton = document.createElement('button');
+eliminarBoton.classList.add('eliminar');

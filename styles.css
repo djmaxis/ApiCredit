@@ -226,3 +226,17 @@ select:focus {
     width: 100%;
 }
 
+button.eliminar { /*Boton eliminr de abonos*/
+    width: 18px;    /* Ajusta el ancho del botón según sea necesario */
+    height: 18px;   /* Ajusta la altura del botón para que sea igual al ancho para lograr la forma circular */
+    border-radius: 50%;  /* Hace que el botón sea circular */
+    background-color: red;   /* Color del fondo del botón */
+    color: white;    /* Color del texto del botón */
+    text-align: center;   /* Centra el texto dentro del botón */
+    border: none;    /* Elimina el borde del botón */
+    font-size: 14px; /* Tamaño del texto del botón */
+    line-height: 10px;  /* Centra verticalmente el texto del botón */
+	 margin-left: 10px;  /* Margen a la izquierda del botón */
+    margin-right: 10px;  /* Margen a la derecha del botón */
+}
+

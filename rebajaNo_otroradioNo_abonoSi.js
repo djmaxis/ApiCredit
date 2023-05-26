@@ -5,60 +5,62 @@ function formatoMilesComa(n) {
 }
 
 function limpiarNumero(numero) {
-    return parseFloat(numero.replace(/,/g, ''));
+    return Math.floor(parseFloat(numero.replace(/,/g, '')));
 }
 
 function rebajaNo_otroradioNo_abonoSi() {
-    // Obtén los elementos del formulario
+    // Get form elements
     var fecha = document.getElementById('fecha').value;
-    var saldoActual = parseFloat(document.getElementById('saldoActual').value.replace(/,/g, ''));
+    var saldoActual = limpiarNumero(document.getElementById('saldoActual').value);
     var fechaAbono = document.getElementById('fechaAbono').value;
     var nombreCliente = document.getElementById('nombreCliente').value; 
     var seleccion = document.getElementById('nombreCliente').value; 
     var nombreCliente = seleccion.split('_')[0];
     var telefonoCliente = document.getElementById('telefono').value;
 
-    // Calcular el total de los abonos
-    var totalAbonos = CarritoAbono.reduce((total, abono) => total + parseFloat(abono.monto), 0);
+    // Calculate the total of abonos
+    var totalAbonos = Math.floor(CarritoAbono.reduce((total, abono) => total + limpiarNumero(abono.monto), 0));
 
-    // Verificar que el saldo actual sea mayor o igual a la suma total de los abonos
+    // Check if saldoActual is less than the total of abonos
     if (saldoActual < totalAbonos) {
-        // Mostrar un mensaje de error al usuario
+        // Alert the user with an error message
         alert('El saldo actual no puede ser menor que la suma total de los abonos');
         return;
     }
-	
-	
 
-    // Calcular el saldo restante
+    // Calculate saldoRestante
     var saldoRestante = saldoActual - totalAbonos;
     var saldoRestanteString = saldoRestante < 0 ? formatoMilesComa(Math.abs(saldoRestante)) + " pesos a tu favor" : formatoMilesComa(saldoRestante);
-	
-	if (saldoRestante == 0) {
-		alert(`${nombreCliente} ha saldado todas sus cuentas.`);
-	}else{
-		
-    // Genera el mensaje final
-    var mensajeFinal = `Fecha: ${fecha}\nBalance de: *${nombreCliente}* \n\n${formatoMilesComa(saldoActual)} *Saldo anterior:*\n`;
 
-    // Añadir detalles de cada abono al mensaje
-    CarritoAbono.forEach((abono, index) => {
-        mensajeFinal += `-${formatoMilesComa(abono.monto)} el ${abono.fechaAbono} por ${abono.metodoDePago}`;
-        if (abono.metodoDePago === "Transferencia") {
-            mensajeFinal += ` al ${abono.banco}`;
-        }
-        mensajeFinal += `\n`;
-    });
+    if (saldoRestante == 0) {
+        alert(`${nombreCliente} ha saldado todas sus cuentas.`);
+    } else {
 
-    mensajeFinal += `=${saldoRestanteString} *Saldo total:*`;
-    
-    var mensajeWhatsAppCliente = `https://wa.me/18295463303?text=${encodeURIComponent(mensajeFinal)}`;
+        // Generate the final message
+        var mensajeFinal = `Fecha: ${fecha}\nBalance de: *${nombreCliente}* \n\n${formatoMilesComa(saldoActual)} 🡸 *Saldo anterior*\n`;
 
-    // Abre el enlace de WhatsApp en una nueva pestaña
-    window.open(mensajeWhatsAppCliente, '_blank');
+        // Add details of each abono to the message
+        CarritoAbono.forEach((abono, index) => {
+            mensajeFinal += `-${formatoMilesComa(limpiarNumero(abono.monto))} 🡸 *abono* ${abono.fechaAbono} en ${abono.metodoDePago}`;
+            if (abono.metodoDePago === "Transferencia") {
+                mensajeFinal += ` al ${abono.banco}`;
+            }
+            mensajeFinal += `\n`;
+        });
 
-    // Crea el archivo txt
-    var blob = new Blob([mensajeFinal], { type: "text/plain;charset=utf-8" });
+        mensajeFinal += `=${saldoRestanteString} 🡸 *Saldo total*\n\n_*Credit control made easy with iMaxis*_`;
+        
+        var mensajeWhatsAppCliente = `https://wa.me/${telefonoCliente}?text=${encodeURIComponent(mensajeFinal)}`;
+
+        mensajeFinal += `\n\nEnviar al cliente: ${mensajeWhatsAppCliente}`;
+
+        var mensajeWhatsAppPrincipal = `https://wa.me/18295463303?text=${encodeURIComponent(mensajeFinal)}`;
+
+        // Open the WhatsApp link in a new tab
+        window.open(mensajeWhatsAppPrincipal, '_blank');
+
+        // Create txt file
+        var blob = new Blob([mensajeFinal], { type: "text/plain;charset=utf-8" });
     var url = URL.createObjectURL(blob);
     var link = document.createElement("a");
     link.href = url;
@@ -67,7 +69,7 @@ function rebajaNo_otroradioNo_abonoSi() {
     link.click();
     document.body.removeChild(link);
 }
-	}
+}
 
 
 

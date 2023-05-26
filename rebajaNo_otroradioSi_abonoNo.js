@@ -1,26 +1,27 @@
 function rebajaNo_otroradioSi_abonoNo() {
-    // Obt√©n los elementos del formulario
+    // ObtÈn los elementos del formulario
     var fecha = document.getElementById('fecha').value;
     var saldoActual = parseFloat(document.getElementById('saldoActual').value);
     var nombreCliente = document.getElementById('nombreCliente').value;
-    nombreCliente = nombreCliente.split("_")[0];  // Aqu√≠ se obtienen los caracteres antes de "_"
+    nombreCliente = nombreCliente.split("_")[0];
     var telefonoCliente = document.getElementById('telefono').value;
     var otroCarritoDiv = document.getElementById('otroCarrito').innerText.trim().replace(/X/g, '');
     var otroTotal = limpiarNumero(document.getElementById('otroTotal').innerText.replace('Total: $', ''));
 
-    // Realiza los c√°lculos
+    // Realiza los c·lculos
     var saldoTotal = saldoActual + otroTotal;
+    saldoTotal = formatoMilesComa(saldoTotal);  // AÒade el formato de miles con comas
 
-    // Si saldoTotal es negativo, a√±ade " pesos a tu favor"
-    var saldoTotalString = saldoTotal < 0 ? formatoMilesComa(Math.abs(saldoTotal)) + " pesos a tu favor" : formatoMilesComa(saldoTotal);
+    // Si saldoTotal es negativo, aÒade " pesos a tu favor"
+    var saldoTotalString = saldoTotal < 0 ? formatoMilesComa(Math.abs(saldoTotal)) + " pesos a tu favor" : saldoTotal;
 
     // Genera el mensaje final
-    var mensajeFinal = `Fecha: ${fecha}\nBalance de: *${nombreCliente}*\n\n* Saldo anterior:* ${formatoMilesComa(saldoActual)}\n\nAhora, sumaremos...\n${otroCarritoDiv}\n__________________________________\n${formatoMilesComa(otroTotal)} *Total:*\n\n${saldoTotalString} *Saldo total:*`;
+    var mensajeFinal = `Fecha: ${fecha}\nBalance de: *${nombreCliente}*\n\n*Saldo anterior:* ${formatoMilesComa(saldoActual)}\n\nAhora, sumaremos...\n${otroCarritoDiv}\n__________________________________\n${formatoMilesComa(otroTotal)} ü°∏ *Total facturas*\n+${formatoMilesComa(saldoActual)} ü°∏ *Saldo anterior:*\n\n=${saldoTotalString} ü°∏ *Saldo total\n\n_*Credit control made easy with iMaxis*_`;
     mensajeFinal += `\n\n(https://wa.me/${telefonoCliente}?text=${encodeURIComponent(mensajeFinal)})`;
 
     var mensajeWhatsAppCliente = `https://wa.me/18295463303?text=${encodeURIComponent(mensajeFinal)}`;
 
-    // Abre el enlace de WhatsApp en una nueva pesta√±a
+    // Abre el enlace de WhatsApp en una nueva pestaÒa
     window.open(mensajeWhatsAppCliente, '_blank');
 
     // Crea el archivo txt
@@ -32,14 +33,4 @@ function rebajaNo_otroradioSi_abonoNo() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-}
-
-function formatoMilesComa(n) {
-    var partes = n.toString().split(".");
-    partes[0] = partes[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    return partes.join(".");
-}
-
-function limpiarNumero(numero) {
-    return parseFloat(numero.replace(/,/g, ''));
 }
