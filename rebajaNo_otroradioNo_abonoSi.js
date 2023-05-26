@@ -41,14 +41,14 @@ function rebajaNo_otroradioNo_abonoSi() {
 
         // Add details of each abono to the message
         CarritoAbono.forEach((abono, index) => {
-            mensajeFinal += `-${formatoMilesComa(limpiarNumero(abono.monto))} ➖ *abono* ${abono.fechaAbono} en ${abono.metodoDePago}\n_________________________________`;
+            mensajeFinal += `-${formatoMilesComa(limpiarNumero(abono.monto))} ➖ *abono* ${abono.fechaAbono} en ${abono.metodoDePago}\n`;
             if (abono.metodoDePago === "Transferencia") {
                 mensajeFinal += ` al ${abono.banco}\n`;
             }
             mensajeFinal += `\n`;
         });
 
-        mensajeFinal += `=${saldoRestanteString} ➖ *Saldo total*\n\n_*Credit control made easy with iMaxis*_`;
+        mensajeFinal += `_________________________________\n=${saldoRestanteString} ➖ *Saldo total*\n\n_*Credit control made easy with iMaxis*_`;
         
         var mensajeWhatsAppCliente = `https://wa.me/${telefonoCliente}?text=${encodeURIComponent(mensajeFinal)}`;
 
