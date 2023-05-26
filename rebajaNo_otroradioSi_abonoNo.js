@@ -1,7 +1,12 @@
+function limpiarNumero(cadena) {
+    let numero = cadena.replace(/,/g, '');
+    return parseFloat(numero);
+}
+
 function rebajaNo_otroradioSi_abonoNo() {
     // Obtén los elementos del formulario
     var fecha = document.getElementById('fecha').value;
-    var saldoActual = parseFloat(document.getElementById('saldoActual').value);
+    var saldoActual = limpiarNumero(document.getElementById('saldoActual').value);
     var nombreCliente = document.getElementById('nombreCliente').value;
     nombreCliente = nombreCliente.split("_")[0];
     var telefonoCliente = document.getElementById('telefono').value;

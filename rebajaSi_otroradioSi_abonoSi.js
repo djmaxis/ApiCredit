@@ -15,7 +15,8 @@ function rebajaSi_otroradioSi_abonoSi() {
     var totalAbonos = CarritoAbono.reduce((total, abono) => total + parseFloat(abono.monto), 0);
 
     // Verificar que el saldo actual sea mayor o igual a la suma total de los abonos y productos
-   /* if (saldoActual < totalAbonos + total + otroTotal) {
+    // Comentado por ahora
+    /* if (saldoActual < totalAbonos + total + otroTotal) {
         // Mostrar un mensaje de error al usuario
         alert('El saldo actual no puede ser menor que la suma total de los abonos y productos');
         return;
@@ -46,14 +47,11 @@ function rebajaSi_otroradioSi_abonoSi() {
 
     var mensajeWhatsAppCliente = `https://wa.me/18295463303?text=${encodeURIComponent(mensajeFinal)}`;
 	
-		if (saldoRestante == 0) {
+    if (saldoRestante == 0) {
         // Mostrar un mensaje de error al usuario
-        alert('El cliente *${nombreCliente}* saldo la cuenta');
+        alert(`El cliente *${nombreCliente}* saldo la cuenta`);
         return;
-}
-	
-	
-
+    }
 
     // Abre el enlace de WhatsApp en una nueva pestaña
     window.open(mensajeWhatsAppCliente, '_blank');
@@ -67,4 +65,4 @@ function rebajaSi_otroradioSi_abonoSi() {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-	
+}

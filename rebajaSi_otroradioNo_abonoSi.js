@@ -3,7 +3,6 @@ function rebajaSi_otroradioNo_abonoSi() {
     var fecha = document.getElementById('fecha').value;
     var saldoActual = parseFloat(document.getElementById('saldoActual').value.replace(/,/g, ''));
     var fechaAbono = document.getElementById('fechaAbono').value;
-    var nombreCliente = document.getElementById('nombreCliente').value; 
     var seleccion = document.getElementById('nombreCliente').value; 
     var nombreCliente = seleccion.split('_')[0];
     var telefonoCliente = document.getElementById('telefono').value;
@@ -19,7 +18,7 @@ function rebajaSi_otroradioNo_abonoSi() {
         alert('El saldo actual no puede ser menor que la suma total de los abonos y productos');
         return;
     }
-	
+    
     if (saldoActual === (totalAbonos + total)) {
         alert(`${nombreCliente} ha saldado todas sus cuentas.`);
         return;
@@ -30,7 +29,7 @@ function rebajaSi_otroradioNo_abonoSi() {
     var saldoRestanteString = saldoRestante < 0 ? formatoMilesComa(Math.abs(saldoRestante)) + " pesos a tu favor" : formatoMilesComa(saldoRestante);
 
     // Genera el mensaje final
-    var mensajeFinal = `Fecha: ${fecha}\nBalance de: *${nombreCliente}* \n\n${formatoMilesComa(saldoActual)} *Saldo anterior:*\n\nDel saldo anterior *rebajaremos...*\n${carritoDiv}\n=${formatoMilesComa(total)} *Total productos*\n`;
+    var mensajeFinal = `Fecha: ${fecha}\nBalance de: *${nombreCliente}* \n\n${formatoMilesComa(saldoActual)} 🡸 *Saldo anterior:*\n\nDel saldo anterior *rebajaremos...*\n${carritoDiv}\n=${formatoMilesComa(total)}  🡸 *Total productos*\n\n`;
 
     // Añadir detalles de cada abono al mensaje
     mensajeFinal += "\Abonos adicionados\n";
@@ -41,14 +40,21 @@ function rebajaSi_otroradioNo_abonoSi() {
         }
         mensajeFinal += `\n`;
     });
-    mensajeFinal += `=${formatoMilesComa(totalAbonos)} *Total abonos*\n`;
+    mensajeFinal += `=${formatoMilesComa(totalAbonos)} 🡸 *Total abonos*\n`;
 
-    mensajeFinal += `\n__________________________________\n${formatoMilesComa(saldoActual)} *Saldo anterior:*\n-${formatoMilesComa(totalAbonos)} *Total abonos:*\n-${formatoMilesComa(total)} *Total productos:*\n=${saldoRestanteString} *Saldo restante:*`;
+    mensajeFinal += `\n${formatoMilesComa(saldoActual)} 🡸 *Saldo anterior:*\n-${formatoMilesComa(totalAbonos)} 🡸 *Total abonos:*\n-${formatoMilesComa(total)} 🡸 *Total productos:*\n__________________________________\n=${saldoRestanteString} 🡸 *Saldo restante:*\n\n_*Credit control made easy with iMaxis*_`;
 
-    var mensajeWhatsAppCliente = `https://wa.me/18295463303?text=${encodeURIComponent(mensajeFinal)}`;
+    // Genera el enlace de WhatsApp para el telefonoCliente
+    var mensajeWhatsAppCliente = `https://wa.me/${telefonoCliente}?text=${encodeURIComponent(mensajeFinal)}`;
+
+    // Incluye el enlace de WhatsApp para el telefonoCliente en el mensajeFinal
+    mensajeFinal += `\n\nEnviale al cliente: ${mensajeWhatsAppCliente}`;
+
+    // Genera el enlace de WhatsApp para el número "8295463303"
+    var mensajeWhatsApp = `https://wa.me/18295463303?text=${encodeURIComponent(mensajeFinal)}`;
 
     // Abre el enlace de WhatsApp en una nueva pestaña
-    window.open(mensajeWhatsAppCliente, '_blank');
+    window.open(mensajeWhatsApp, '_blank');
 
     // Crea el archivo txt
     var blob = new Blob([mensajeFinal], { type: "text/plain;charset=utf-8" });

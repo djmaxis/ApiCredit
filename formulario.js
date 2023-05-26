@@ -112,7 +112,7 @@ function rellenarTelefono() {
 
     // Rellena el campo de teléfono
     document.getElementById('telefono').value = telefonoCliente;
-	document.getElementById('nombre').value = nombreCliente
+	
 }
 
 
@@ -206,26 +206,36 @@ function actualizarCarrito() {
 }
 
 
-/*******Esto daba formato de comas a los numeros pero lo quite porque me daba bobo en carrito*******
+
+
+
 $(document).ready(function() {
-    const nonNegativeFields = ['saldoActual', 'montoabono', 'precio', 'montofactura'];
-    nonNegativeFields.forEach(id => {
-        $('#' + id).on('input', function() {
-            let value = $(this).val().replace(/,/g, '');
-            if (!$.isNumeric(value) || parseInt(value) < 0) {
+    const ids = ["#saldoActual", "#montoabono", "#precio", "#montofactura"];
+
+    // Función para formatear un número con comas como separadores de miles
+    function formatoMilesComa(n) {
+        return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    // Función para convertir un número formateado con comas a un número regular
+    function convertirNumero(cadena) {
+        return parseFloat(cadena.replace(/,/g, ''));
+    }
+
+    ids.forEach(function(id) {
+        $(id).on('input', function() {
+            // Obtenemos el valor actual del campo de entrada
+            let valorActual = $(this).val();
+            // Quitamos las comas y lo convertimos a un número
+            let valorNumerico = convertirNumero(valorActual);
+
+            // Si no es un número válido, limpiamos el campo
+            if (isNaN(valorNumerico)) {
                 $(this).val('');
             } else {
-                $(this).val(new Intl.NumberFormat('en-US').format(value));
+                // Si es un número válido, formateamos el número con comas y lo establecemos como el valor del campo de entrada
+                $(this).val(formatoMilesComa(valorNumerico));
             }
         });
     });
-
-    $('#cantidad').on('input', function() {
-        let value = $(this).val().replace(/,/g, '');
-        if (!$.isNumeric(value) || parseInt(value) < 1) {
-            $(this).val('');
-        } else {
-            $(this).val(new Intl.NumberFormat('en-US').format(value));
-        }
-    });
-});*/
+});
