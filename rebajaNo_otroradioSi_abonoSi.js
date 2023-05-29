@@ -14,7 +14,7 @@ function rebajaNo_otroradioSi_abonoSi() {
   
 
     // Calcular el saldo restante
-    var saldoRestante = saldoActual + totalAbonos - otroTotal;
+    var saldoRestante = saldoActual - totalAbonos + otroTotal;
     var saldoRestanteString = saldoRestante < 0 ? formatoMilesComa(Math.abs(saldoRestante)) : formatoMilesComa(saldoRestante);
 
     // Genera el mensaje final
