@@ -15,7 +15,7 @@ function rebajaNo_otroradioSi_abonoSi() {
     var saldoRestanteString = saldoRestante < 0 ? formatoMilesComa(Math.abs(saldoRestante)) : formatoMilesComa(saldoRestante);
 
     // Genera el mensaje final
-    var mensajeFinal = `*Fecha:* ${fecha}\nBalance de: *${nombreCliente}* \n\n${formatoMilesComa(saldoActual)} ➖ *Saldo anterior*\n`;
+    var mensajeFinal = `Fecha:* ${fecha}\nBalance de: *${nombreCliente}* \n\n${formatoMilesComa(saldoActual)} ➖ *Saldo anterior*\n`;
 
     // Añadir detalles de cada abono al mensaje
     mensajeFinal += "\n*Abonos*\n";
@@ -32,7 +32,7 @@ function rebajaNo_otroradioSi_abonoSi() {
     mensajeFinal += "\n*Facturas adicionadas*\n" + otroCarritoDiv;
     mensajeFinal += `\n=${formatoMilesComa(otroTotal)} ➖ *Total facturas*\n`;
 
-    mensajeFinal += `\n${formatoMilesComa(saldoActual)} ➖ *Saldo anterior*\n+${formatoMilesComa(totalAbonos)} ➖ *Total facturas*\n-${formatoMilesComa(otroTotal)} ➖ *Total abonos\n__________________________________\n=${saldoRestanteString} ➖ *Saldo restante*\n\n_*Credit control made easy with iMaxis*_`;
+    mensajeFinal += `\n${formatoMilesComa(saldoActual)} ➖ *Saldo anterior*\n+${formatoMilesComa(totalAbonos)} ➖ *Total facturas*\n-${formatoMilesComa(otroTotal)} ➖ *Total abonos*\n__________________________________\n=${saldoRestanteString} ➖ *Saldo restante*\n\n_*Credit control made easy with iMaxis*_`;
 
     // Genera el enlace de WhatsApp para el telefonoCliente
     var mensajeWhatsAppCliente = `https://wa.me/${telefonoCliente}?text=${encodeURIComponent(mensajeFinal)}`;
