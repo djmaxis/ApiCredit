@@ -1,14 +1,14 @@
 function rebajaNo_otroradioSi_abonoSi() {
     // Obtén los elementos del formulario
     var fecha = document.getElementById('fecha').value;
-    var saldoActual = parseFloat(document.getElementById('saldoActual').value);
+    var saldoActual = parseFloat(limpiarNumero(document.getElementById('saldoActual').value));
     var nombreCliente = document.getElementById('nombreCliente').value.split("_")[0];
-    var telefonoCliente = document.getElementById('telefono').value;
+    var telefonoCliente = limpiarNumero(document.getElementById('telefono').value);
     var otroCarritoDiv = document.getElementById('otroCarrito').innerText.trim().replace(/X/g, '');
     var otroTotal = limpiarNumero(document.getElementById('otroTotal').innerText.replace('Total: $', ''));
 
     // Calcular el total de los abonos
-    var totalAbonos = CarritoAbono.reduce((total, abono) => total + parseFloat(abono.monto), 0);
+    var totalAbonos = CarritoAbono.reduce((total, abono) => total + parseFloat(limpiarNumero(abono.monto)), 0);
 
     // Verificar que el saldo actual sea mayor o igual a la suma total de los abonos y facturas
   
@@ -23,7 +23,7 @@ function rebajaNo_otroradioSi_abonoSi() {
     // Añadir detalles de cada abono al mensaje
     mensajeFinal += "\n*Abonos*\n";
     CarritoAbono.forEach((abono, index) => {
-        mensajeFinal += `${formatoMilesComa(abono.monto)} el ${abono.fechaAbono} por ${abono.metodoDePago}`;
+        mensajeFinal += `${formatoMilesComa(limpiarNumero(abono.monto))} el ${abono.fechaAbono} por ${abono.metodoDePago}`;
         if (abono.metodoDePago === "Transferencia") {
             mensajeFinal += ` al ${abono.banco}`;
         }
