@@ -10,15 +10,12 @@ function rebajaNo_otroradioSi_abonoSi() {
     // Calcular el total de los abonos
     var totalAbonos = CarritoAbono.reduce((total, abono) => total + parseFloat(limpiarNumero(abono.monto)), 0);
 
-    // Verificar que el saldo actual sea mayor o igual a la suma total de los abonos y facturas
-  
-
     // Calcular el saldo restante
     var saldoRestante = saldoActual - totalAbonos + otroTotal;
     var saldoRestanteString = saldoRestante < 0 ? formatoMilesComa(Math.abs(saldoRestante)) : formatoMilesComa(saldoRestante);
 
     // Genera el mensaje final
-    var mensajeFinal = `Fecha: ${fecha}\nBalance de: *${nombreCliente}* \n\n${formatoMilesComa(saldoActual)} *Saldo anterior:*\n`;
+    var mensajeFinal = `*Fecha:* ${fecha}\nBalance de: *${nombreCliente}* \n\n${formatoMilesComa(saldoActual)} ➖ *Saldo anterior*\n`;
 
     // Añadir detalles de cada abono al mensaje
     mensajeFinal += "\n*Abonos*\n";
@@ -29,18 +26,25 @@ function rebajaNo_otroradioSi_abonoSi() {
         }
         mensajeFinal += `\n`;
     });
-    mensajeFinal += `=${formatoMilesComa(totalAbonos)} *Total abonos*\n`;
+    mensajeFinal += `=${formatoMilesComa(totalAbonos)} ➖ *Total abonos*\n`;
 
     // Añadir detalles de cada factura al mensaje
     mensajeFinal += "\n*Facturas adicionadas*\n" + otroCarritoDiv;
-    mensajeFinal += `\n=${formatoMilesComa(otroTotal)} *Total facturas*\n`;
+    mensajeFinal += `\n=${formatoMilesComa(otroTotal)} ➖ *Total facturas*\n`;
 
-    mensajeFinal += `\n${formatoMilesComa(saldoActual)} *Saldo anterior:*\n+${formatoMilesComa(totalAbonos)} *Total facturas*\n-${formatoMilesComa(otroTotal)} *Total abonos:*\n__________________________________\n=${saldoRestanteString} *Saldo restante:*`;
+    mensajeFinal += `\n${formatoMilesComa(saldoActual)} ➖ *Saldo anterior*\n+${formatoMilesComa(totalAbonos)} ➖ *Total facturas*\n-${formatoMilesComa(otroTotal)} ➖ *Total abonos\n__________________________________\n=${saldoRestanteString} ➖ *Saldo restante*\n\n_*Credit control made easy with iMaxis*_`;
 
-    var mensajeWhatsAppCliente = `https://wa.me/18295463303?text=${encodeURIComponent(mensajeFinal)}`;
+    // Genera el enlace de WhatsApp para el telefonoCliente
+    var mensajeWhatsAppCliente = `https://wa.me/${telefonoCliente}?text=${encodeURIComponent(mensajeFinal)}`;
+
+    // Incluye el enlace de WhatsApp para el telefonoCliente en el mensajeFinal
+    mensajeFinal += `\n\nEviar al cliente ➡️ ${mensajeWhatsAppCliente}`;
+
+    // Genera el enlace de WhatsApp para el número "8295463303"
+    var mensajeWhatsApp = `https://wa.me/18295463303?text=${encodeURIComponent(mensajeFinal)}`;
 
     // Abre el enlace de WhatsApp en una nueva pestaña
-    window.open(mensajeWhatsAppCliente, '_blank');
+    window.open(mensajeWhatsApp, '_blank');
 
     // Crea el archivo txt
     var blob = new Blob([mensajeFinal], { type: "text/plain;charset=utf-8" });
