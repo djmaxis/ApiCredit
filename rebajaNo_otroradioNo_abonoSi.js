@@ -48,7 +48,7 @@ function rebajaNo_otroradioNo_abonoSi() {
             mensajeFinal += `\n`;
         });
 
-        mensajeFinal += `_________________________________\n=${saldoRestanteString} ➖ *Saldo total*\n\n_*Credit control made easy with iMaxis*_`;
+        mensajeFinal += `\n_________________________________\n=${saldoRestanteString} ➖ *Saldo total*\n\n_*Credit control made easy with iMaxis*_`;
         
         var mensajeWhatsAppCliente = `https://wa.me/${telefonoCliente}?text=${encodeURIComponent(mensajeFinal)}`;
 
