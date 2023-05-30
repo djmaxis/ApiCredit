@@ -45,7 +45,7 @@ function rebajaNo_otroradioNo_abonoSi() {
             if (abono.metodoDePago === "Transferencia") {
                 mensajeFinal += ` al ${abono.banco}\n`;
             }
-            mensajeFinal += ``;
+           
         });
 
         mensajeFinal += `_________________________________\n=${saldoRestanteString} ➖ *Saldo total*\n\n_*Credit control made easy with iMaxis*_`;
