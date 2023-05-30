@@ -41,14 +41,14 @@ function rebajaNo_otroradioNo_abonoSi() {
 
         // Add details of each abono to the message
         CarritoAbono.forEach((abono, index) => {
-            mensajeFinal += `-${formatoMilesComa(limpiarNumero(abono.monto))} ➖ *abono* ${abono.fechaAbono} en ${abono.metodoDePago}`;
-            if (abono.metodoDePago === "transferencia") {
-                mensajeFinal += ` al ${abono.banco}`;
+            mensajeFinal += `-${formatoMilesComa(limpiarNumero(abono.monto))} ➖ *abono* ${abono.fechaAbono} en ${abono.metodoDePago}\n`;
+            if (abono.metodoDePago === "Transferencia") {
+                mensajeFinal += ` al ${abono.banco}\n`;
             }
-            mensajeFinal += `\n`;
+            mensajeFinal += ``;
         });
 
-        mensajeFinal += `\n_________________________________\n=${saldoRestanteString} ➖ *Saldo total*\n\n_*Credit control made easy with iMaxis*_`;
+        mensajeFinal += `_________________________________\n=${saldoRestanteString} ➖ *Saldo total*\n\n_*Credit control made easy with iMaxis*_`;
         
         var mensajeWhatsAppCliente = `https://wa.me/${telefonoCliente}?text=${encodeURIComponent(mensajeFinal)}`;
 
@@ -70,5 +70,4 @@ function rebajaNo_otroradioNo_abonoSi() {
     document.body.removeChild(link);
 }
 }
-
 
