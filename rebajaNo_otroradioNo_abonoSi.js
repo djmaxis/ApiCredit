@@ -41,11 +41,11 @@ function rebajaNo_otroradioNo_abonoSi() {
 
         // Add details of each abono to the message
         CarritoAbono.forEach((abono, index) => {
-            mensajeFinal += `-${formatoMilesComa(limpiarNumero(abono.monto))} ➖ *abono* ${abono.fechaAbono} en ${abono.metodoDePago}\n`;
-            if (abono.metodoDePago === "Transferencia") {
+            mensajeFinal += `-${formatoMilesComa(limpiarNumero(abono.monto))} ➖ *abono* ${abono.fechaAbono} en ${abono.metodoDePago}`;
+            if (abono.metodoDePago === "transferencia") {
                 mensajeFinal += ` al ${abono.banco}`;
             }
-            mensajeFinal += ``;
+            mensajeFinal += `\n`;
         });
 
         mensajeFinal += `_________________________________\n=${saldoRestanteString} ➖ *Saldo total*\n\n_*Credit control made easy with iMaxis*_`;
