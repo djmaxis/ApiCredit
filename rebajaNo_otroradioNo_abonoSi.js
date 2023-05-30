@@ -43,7 +43,7 @@ function rebajaNo_otroradioNo_abonoSi() {
         CarritoAbono.forEach((abono, index) => {
             mensajeFinal += `-${formatoMilesComa(limpiarNumero(abono.monto))} ➖ *abono* ${abono.fechaAbono} en ${abono.metodoDePago}\n`;
             if (abono.metodoDePago === "Transferencia") {
-                mensajeFinal += ` al ${abono.banco}\n`;
+                mensajeFinal += ` al ${abono.banco}`;
             }
             mensajeFinal += ``;
         });
