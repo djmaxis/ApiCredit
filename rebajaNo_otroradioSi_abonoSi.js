@@ -32,7 +32,7 @@ function rebajaNo_otroradioSi_abonoSi() {
     mensajeFinal += "\n*Facturas adicionadas*\n" + otroCarritoDiv;
     mensajeFinal += `\n=${formatoMilesComa(otroTotal)} ➖ *Total facturas*\n`;
 
-    mensajeFinal += `\n${formatoMilesComa(saldoActual)} ➖ *Saldo anterior*\n+${formatoMilesComa(totalAbonos)} ➖ *Total abonos*\n-${formatoMilesComa(otroTotal)} ➖ *Total facturas*\n__________________________________\n=${saldoRestanteString} ➖ *Saldo restante*\n\n_*Credit control made easy with iMaxis*_`;
+    mensajeFinal += `\n${formatoMilesComa(saldoActual)} ➖ *Saldo anterior*\n-${formatoMilesComa(totalAbonos)} ➖ *Total abonos*\n+${formatoMilesComa(otroTotal)} ➖ *Total facturas*\n__________________________________\n=${saldoRestanteString} ➖ *Saldo restante*\n\n_*Credit control made easy with iMaxis*_`;
 
     // Genera el enlace de WhatsApp para el telefonoCliente
     var mensajeWhatsAppCliente = `https://wa.me/1${telefonoCliente}?text=${encodeURIComponent(mensajeFinal)}`;
