@@ -35,7 +35,7 @@ function rebajaNo_otroradioSi_abonoSi() {
     mensajeFinal += `\n${formatoMilesComa(saldoActual)} ➖ *Saldo anterior*\n+${formatoMilesComa(totalAbonos)} ➖ *Total facturas*\n-${formatoMilesComa(otroTotal)} ➖ *Total abonos*\n__________________________________\n=${saldoRestanteString} ➖ *Saldo restante*\n\n_*Credit control made easy with iMaxis*_`;
 
     // Genera el enlace de WhatsApp para el telefonoCliente
-    var mensajeWhatsAppCliente = `https://wa.me/${telefonoCliente}?text=${encodeURIComponent(mensajeFinal)}`;
+    var mensajeWhatsAppCliente = `https://wa.me/1${telefonoCliente}?text=${encodeURIComponent(mensajeFinal)}`;
 
     // Incluye el enlace de WhatsApp para el telefonoCliente en el mensajeFinal
     mensajeFinal += `\n\nEviar al cliente ➡️ ${mensajeWhatsAppCliente}`;
