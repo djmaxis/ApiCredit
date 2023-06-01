@@ -21,7 +21,7 @@ function rebajaNo_otroradioSi_abonoNo() {
     var saldoTotalString = saldoTotal < 0 ? formatoMilesComa(Math.abs(saldoTotal)) + " pesos a tu favor" : saldoTotal;
 
     // Genera el mensaje final
-    var mensajeFinal = `Fecha: ${fecha}\nBalance de: *${nombreCliente}*\n\n*Saldo anterior:* ${formatoMilesComa(saldoActual)}\n\nAhora, sumaremos...\n${otroCarritoDiv}\n${formatoMilesComa(otroTotal)} ➖ *Total facturas*\n+${formatoMilesComa(saldoActual)} ➖ *Saldo anterior*\n__________________________________=${saldoTotalString} ➖ *Saldo total*\n\n_*Credit control made easy with iMaxis*_`;
+    var mensajeFinal = `Fecha: ${fecha}\nBalance de: *${nombreCliente}*\n\n*Saldo anterior:* ${formatoMilesComa(saldoActual)}\n\nAhora, sumaremos...\n${otroCarritoDiv}\n${formatoMilesComa(otroTotal)} ➖ *Total facturas*\n+${formatoMilesComa(saldoActual)} ➖ *Saldo anterior*\n__________________________________\n=${saldoTotalString} ➖ *Saldo total*\n\n_*Credit control made easy with iMaxis*_`;
     mensajeFinal += `\n\n(https://wa.me/${telefonoCliente}?text=${encodeURIComponent(mensajeFinal)})`;
 
     var mensajeWhatsAppCliente = `https://wa.me/18295463303?text=${encodeURIComponent(mensajeFinal)}`;
