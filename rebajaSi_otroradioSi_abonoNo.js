@@ -31,7 +31,7 @@ function rebajaSi_otroradioSi_abonoNo() {
 
     // Genera el mensaje final
     var mensajeFinal = `Fecha: ${fecha}\nBalance de: *${nombreCliente}*\n\n*Saldo anterior:* ${formatoMilesComa(saldoActual)}\n\nDel saldo anterior *rebajaremos...*\n${carritoDiv}\n*Total:* ${formatoMilesComa(total)}\n\n ${formatoMilesComa(saldoRestante)} *Saldo restante:*\n-${formatoMilesComa(montoAbono)} *Abono: El ${fechaAbono}*\n=${formatoMilesComa(abono_SaldoRes)}\n\n*Ahora, Sumaremos:*\n${otroCarritoDiv}\n*Total:* ${formatoMilesComa(otroTotal)}\n\n*Saldo total:* ${saldoTotalString}`;
-    mensajeFinal += `\n\n(https://wa.me/${telefonoCliente}?text=${encodeURIComponent(mensajeFinal)})`;
+    mensajeFinal += `\n\n(https://wa.me/1${telefonoCliente}?text=${encodeURIComponent(mensajeFinal)})`;
 
     var mensajeWhatsAppCliente = `https://wa.me/18295463303?text=${encodeURIComponent(mensajeFinal)}`;
 
