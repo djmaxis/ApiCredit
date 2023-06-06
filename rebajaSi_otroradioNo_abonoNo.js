@@ -11,10 +11,10 @@ function limpiarNumero(numero) {
 function rebajaSi_otroradiono_abonoNo() {
     // Obtén los elementos del formulario
     var fecha = document.getElementById('fecha').value;
-    var saldoActual = parseFloat(document.getElementById('saldoActual').value);
+    var saldoActual = limpiarNumero(document.getElementById('saldoActual').value);
     var nombreCliente = document.getElementById('nombreCliente').value;
     nombreCliente = nombreCliente.split("_")[0];  // Aquí se obtienen los caracteres antes de "_"
-    var telefonoCliente = document.getElementById('telefono').value;
+    var telefonoCliente = limpiarNumero(document.getElementById('telefono').value);
     var total = limpiarNumero(document.getElementById('total').innerText.replace('Total: $', ''));
     var carritoDiv = document.getElementById('carrito').innerText.trim().replace(/X/g, '');
 
@@ -22,10 +22,10 @@ function rebajaSi_otroradiono_abonoNo() {
     var saldoRestante = saldoActual - total;
 
     // Si saldoRestante es negativo, añade " pesos a tu favor"
-   var saldoRestanteString = saldoRestante < 0 ? formatoMilesComa(Math.abs(saldoRestante)) + " pesos a tu favor" : formatoMilesComa(saldoRestante);
+    var saldoRestanteString = saldoRestante < 0 ? formatoMilesComa(Math.abs(saldoRestante)) + " pesos a tu favor" : formatoMilesComa(saldoRestante);
 
     // Genera el mensaje final
-    var mensajeFinal = `Fecha: ${fecha}\nBalance de: *${nombreCliente}*\n\n*Saldo anterior:* ${formatoMilesComa(saldoActual)}\n\nDel saldo anterior *rebajaremos...*\n${carritoDiv}\n__________________________________\n${formatoMilesComa(total)} 🡸 *Total*\n-${formatoMilesComa(saldoActual)} 🡸 *Saldo anterior*\n\n ${saldoRestanteString} 🡸 *Saldo restante*\n\n_*Credit control made easy with iMaxis*_`;
+    var mensajeFinal = `Fecha: ${fecha}\nBalance de: *${nombreCliente}*\n\n*Saldo anterior:* ${formatoMilesComa(saldoActual)}\n\nDel saldo anterior *rebajaremos...*\n${carritoDiv}\n__________________________________\n${formatoMilesComa(total)} ðŸ¡¸ *Total*\n-${formatoMilesComa(saldoActual)} ðŸ¡¸ *Saldo anterior*\n\n ${saldoRestanteString} ðŸ¡¸ *Saldo restante*\n\n_*Credit control made easy with iMaxis*_`;
     mensajeFinal += `\n\n(https://wa.me/1${telefonoCliente}?text=${encodeURIComponent(mensajeFinal)})`;
 
     var mensajeWhatsAppCliente = `https://wa.me/18295463303?text=${encodeURIComponent(mensajeFinal)}`;
