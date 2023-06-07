@@ -1,3 +1,7 @@
+function limpiarNumero(numero) {
+    return parseFloat(numero.replace(/,/g, '').replace(/\./g, ''));
+}
+
 function formatoMilesComa(n) {
     var partes = n.toString().split(".");
     partes[0] = partes[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -8,16 +12,28 @@ function limpiarNumero(numero) {
     return parseFloat(numero.replace(/\./g, '').replace(/,/g, ''));
 }
 
+// Agregamos la función de validación
+function validarNumero(numero) {
+    if (numero == null || numero == undefined || isNaN(numero) || numero == '') {
+        return 0;
+    } else {
+        return parseFloat(numero);
+    }
+}
+
 function rebajaSi_otroradioSi_abonoNo() {
     // Obtén los elementos del formulario
     var fecha = document.getElementById('fecha').value;
-    var saldoActual = parseFloat(document.getElementById('saldoActual').value);
-    var montoAbono = parseFloat(document.getElementById('montoabono').value);
+    var saldoActual = validarNumero(limpiarNumero(document.getElementById('saldoActual').value));
+    var montoAbono = validarNumero(limpiarNumero(document.getElementById('montoabono').value));
     var fechaAbono = document.getElementById('fechaAbono').value;
-    var nombreCliente = document.getElementById('nombreCliente').value;
+    var nombreCliente = document.getElementById('nombreCliente').value.replace(/[^a-zA-Z\-]/g, '').replace(/-/g, ' ');
     var telefonoCliente = document.getElementById('telefono').value;
-    var total = limpiarNumero(document.getElementById('total').innerText.replace('Total: $', ''));
-    var otroTotal = limpiarNumero(document.getElementById('otroTotal').innerText.replace('Total: $', ''));
+
+    //Valida los elementos con 'limpiarNumero' antes de operar con ellos
+    var total = validarNumero(limpiarNumero(document.getElementById('total').innerText.replace('Total: $', '')));
+    var otroTotal = validarNumero(limpiarNumero(document.getElementById('otroTotal').innerText.replace('Total: $', '')));
+
     var carritoDiv = document.getElementById('carrito').innerText.trim().replace(/X/g, '');
     var otroCarritoDiv = document.getElementById('otroCarrito').innerText.trim().replace(/X/g, '');
 
@@ -26,11 +42,16 @@ function rebajaSi_otroradioSi_abonoNo() {
     var abono_SaldoRes = saldoRestante - montoAbono;
     var saldoTotal = abono_SaldoRes + otroTotal;
 
+    //Valida los números antes de llamar a formatoMilesComa
+    saldoTotal = validarNumero(saldoTotal);
+    montoAbono = validarNumero(montoAbono);
+    abono_SaldoRes = validarNumero(abono_SaldoRes);
+
     // Si saldoTotal es negativo, añade " pesos a tu favor"
     var saldoTotalString = saldoTotal < 0 ? formatoMilesComa(Math.abs(saldoTotal)) + " pesos a tu favor" : formatoMilesComa(saldoTotal);
 
     // Genera el mensaje final
-    var mensajeFinal = `Fecha: ${fecha}\nBalance de: *${nombreCliente}*\n\n*Saldo anterior:* ${formatoMilesComa(saldoActual)}\n\nDel saldo anterior *rebajaremos...*\n${carritoDiv}\n*Total:* ${formatoMilesComa(total)}\n\n ${formatoMilesComa(saldoRestante)} *Saldo restante:*\n-${formatoMilesComa(montoAbono)} *Abono: El ${fechaAbono}*\n=${formatoMilesComa(abono_SaldoRes)}\n\n*Ahora, Sumaremos:*\n${otroCarritoDiv}\n*Total:* ${formatoMilesComa(otroTotal)}\n\n*Saldo total:* ${saldoTotalString}`;
+    var mensajeFinal = `Fecha: ${fecha}\nBalance de: *${nombreCliente}*\n\n*Saldo anterior:* ${formatoMilesComa(saldoActual)}\n\nDel saldo anterior *rebajaremos...*\n${carritoDiv}\n*Total:* ${formatoMilesComa(total)}\n\n*Ahora, Sumaremos:*\n${otroCarritoDiv}\n*Total:* ${formatoMilesComa(otroTotal)}\n\n${formatoMilesComa(saldoActual)} ➖ *Saldo anterior*\n-${formatoMilesComa(total)} ➖ *total devoluciones*\n+${formatoMilesComa(otroTotal)} ➖ *Total facturas*\n_______________________________\n=${saldoTotalString} ➖  *Saldo pendiente*\n\n_*Credit control made easy with iMaxis*_`;
     mensajeFinal += `\n\n(https://wa.me/1${telefonoCliente}?text=${encodeURIComponent(mensajeFinal)})`;
 
     var mensajeWhatsAppCliente = `https://wa.me/18295463303?text=${encodeURIComponent(mensajeFinal)}`;
@@ -48,4 +69,3 @@ function rebajaSi_otroradioSi_abonoNo() {
     link.click();
     document.body.removeChild(link);
 }
-
